@@ -194,3 +194,27 @@ function render() {
     jobContainer.appendChild(card);
   });
 }
+
+// Global functions for these event handlers
+window.updateStatus = function(id, newStatus) {
+    const jobIndex = jobs.findIndex(j => j.id === id);
+    if (jobIndex > -1) {
+        jobs[jobIndex].status = newStatus;
+        render(); // Re-render updates the UI updates dashboard
+    }
+}
+
+window.deleteJob = function(id) {
+    jobs = jobs.filter(j => j.id !== id);
+    render(); // Re-render handles UI removal
+}
+
+function updateDashboardCounts() {
+    const total = jobs.length;
+    const interview = jobs.filter(j => j.status === "INTERVIEW").length;
+    const rejected = jobs.filter(j => j.status === "REJECTED").length;
+
+    dashTotal.textContent = total;
+    dashInterview.textContent = interview;
+    dashRejected.textContent = rejected;
+}
