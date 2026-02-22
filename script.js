@@ -115,3 +115,14 @@ tabButtons.forEach((button) => {
     render();
   });
 });
+
+// the rendering() function
+function render() {
+    updateDashboardCounts();
+    
+    const filteredJobs = jobs.filter(job => {
+        if (currentTab === "All") return true;
+        if (currentTab === "Interview" && job.status === "INTERVIEW") return true;
+        if (currentTab === "Rejected" && job.status === "REJECTED") return true;
+        return false;
+    });
